@@ -7,6 +7,7 @@
         </ion-header>
         <ion-content>
             <ion-list>
+              <ion-menu-toggle auto-hide="true" >
                 <ion-item>
                     <ion-icon name="home" slot="start" [routerLink]="'/home'"></ion-icon>
                     <ion-label [routerLink]="'/home'">Home</ion-label>
@@ -24,13 +25,14 @@
                     <ion-label>Archived</ion-label>
                 </ion-item>
                 <ion-item>
-                    <ion-icon name="trash" slot="start"></ion-icon>
-                    <ion-label>Trash</ion-label>
+                    <ion-icon name="trash" slot="start" [routerLink]="'/contact'"></ion-icon>
+                    <ion-label [routerLink]="'/contact'">Contact</ion-label>
                 </ion-item>
                 <ion-item>
                     <ion-icon name="information-circle" slot="start"></ion-icon>
                     <ion-label [routerLink]="'/about'">About</ion-label>
                 </ion-item>
+              </ion-menu-toggle>
             </ion-list>
         </ion-content>
     </ion-menu>
