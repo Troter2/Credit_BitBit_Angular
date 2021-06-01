@@ -13,6 +13,8 @@ export class LogoutPage implements OnInit {
 
   logout(){
     this.loginService.logout();
+    this.router.navigate(['/home']);
+    localStorage.removeItem("USER_DATA");
   }
 
   gohome(){
