@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>contact</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-item>
+        <ion-label position="stacked">Nom</ion-label>
+        <ion-input type="text" ([ngModel])="username"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label position="stacked">Correu electronic</ion-label>
+        <ion-input type="text" ([ngModel])="mail"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Assumpte</ion-label>
+        <ion-input type="text" ([ngModel])="assumpte"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Contingut</ion-label>
+        <ion-textarea ([ngModel])="cotent" placeholder="Inserta la teva consulta..."></ion-textarea>
+    </ion-item>
+
+
+    <ion-item>
+        <ion-label position="stacked">Tipus consulta</ion-label>
+        <ion-select interface="popover">
+            <ion-select-option value="">Solicitar nova reparació</ion-select-option>
+            <ion-select-option value="">Problemes amb la visualització de les incidencies</ion-select-option>
+            <ion-select-option value="">Solicitar una reunió</ion-select-option>
+        </ion-select>
+    </ion-item>
+
+
+    <ion-button>Submit</ion-button>
+</ion-content>

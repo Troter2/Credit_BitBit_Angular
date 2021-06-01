@@ -7,32 +7,36 @@
         </ion-header>
         <ion-content>
             <ion-list>
-              <ion-menu-toggle auto-hide="true" >
-                <ion-item>
-                    <ion-icon name="home" slot="start" [routerLink]="'/home'"></ion-icon>
-                    <ion-label [routerLink]="'/home'">Home</ion-label>
-                </ion-item>
-                <ion-item>
-                    <ion-icon name="paper-plane" slot="start"></ion-icon>
-                    <ion-label>Outbox</ion-label>
-                </ion-item>
-                <ion-item>
-                    <ion-icon name="log-in-outline" slot="start" [routerLink]="'/login'"></ion-icon>
-                    <ion-label [routerLink]="'/login'">Login</ion-label>
-                </ion-item>
-                <ion-item>
-                    <ion-icon name="archive" slot="start"></ion-icon>
-                    <ion-label>Archived</ion-label>
-                </ion-item>
-                <ion-item>
-                    <ion-icon name="trash" slot="start" [routerLink]="'/contact'"></ion-icon>
-                    <ion-label [routerLink]="'/contact'">Contact</ion-label>
-                </ion-item>
-                <ion-item>
-                    <ion-icon name="information-circle" slot="start"></ion-icon>
-                    <ion-label [routerLink]="'/about'">About</ion-label>
-                </ion-item>
-              </ion-menu-toggle>
+                <ion-menu-toggle auto-hide="true">
+                    <ion-item>
+                        <ion-icon name="home" slot="start" [routerLink]="'/home'"></ion-icon>
+                        <ion-label [routerLink]="'/home'">Home</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon name="paper-plane" slot="start"></ion-icon>
+                        <ion-label>Outbox</ion-label>
+                    </ion-item>
+                    <ion-item *ngIf="loginService.user.token == ''">
+                        <ion-icon name="log-in-outline" slot="start" [routerLink]="'/login'"></ion-icon>
+                        <ion-label [routerLink]="'/login'">Login</ion-label>
+                    </ion-item>
+                    <ion-item *ngIf="loginService.user.token != ''">
+                        <ion-icon name="log-out-outline" slot="start" [routerLink]="'/logout'"></ion-icon>
+                        <ion-label [routerLink]="'/logout'">Logout</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon name="archive" slot="start"></ion-icon>
+                        <ion-label>Archived</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon name="trash" slot="start" [routerLink]="'/contact'"></ion-icon>
+                        <ion-label [routerLink]="'/contact'">Contact</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon name="information-circle" slot="start"></ion-icon>
+                        <ion-label [routerLink]="'/about'">About</ion-label>
+                    </ion-item>
+                </ion-menu-toggle>
             </ion-list>
         </ion-content>
     </ion-menu>

@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Login</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+    <ion-card>
+        <ion-item>
+            <ion-label position="stacked">Usuari</ion-label>
+            <ion-input placeholder="Usuari" [(ngModel)]="user"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">Contrasenya</ion-label>
+            <ion-input placeholder="Contrasenya" [(ngModel)]="pass"></ion-input>
+        </ion-item>
+        <ion-item>
+            <div style="text-align: center !important;">
+                <ion-button (click)='login()' color="primary">Accedir</ion-button>
+            </div>
+        </ion-item>
+    </ion-card>
+</ion-content>
