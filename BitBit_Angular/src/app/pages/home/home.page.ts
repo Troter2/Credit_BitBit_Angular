@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { New } from 'src/app/models/new';
+import { PublicService } from 'src/app/services/public.service';
 
 @Component({
   selector: 'app-home',
@@ -6,7 +9,16 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  public news: New[] = [];
+  constructor(private publicService: PublicService, private router: Router) {
 
-  constructor() {}
-
+    this.publicService.retrieveNewsFromHttp();
+    this.publicService.news.subscribe(
+      (newsList: New[]) => {
+        this.news = newsList;
+      }
+    )
+  }
+  ngOnInit() {
+  }
 }

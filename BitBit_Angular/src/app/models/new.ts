@@ -6,13 +6,15 @@ export class New {
 
     constructor() {
         this._title = "";
+        this._content = "";
+        this._image = "";
     }
     
-    get token(): string {
+    get title(): string {
         return this._title;
     }
-    set token(token: string) {
-        this._title=token;
+    set title(title: string) {
+        this._title=title;
     }
     
     get content(): string {
@@ -26,7 +28,7 @@ export class New {
         return this._image;
     }
     set image(image: string) {
-        this._image=image;
+        this._image='http://localhost/Credit_BitBit_PHP/assets/uploads/files/'+image;
     }
     
     get date(): Date {
