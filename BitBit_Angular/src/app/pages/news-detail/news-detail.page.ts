@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { New } from 'src/app/models/new';
 import { PublicService } from 'src/app/services/public.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-news-detail',
+  templateUrl: './news-detail.page.html',
+  styleUrls: ['./news-detail.page.scss'],
 })
-export class HomePage {
+export class NewsDetailPage implements OnInit {
   public news: New[] = [];
+
   constructor(private publicService: PublicService, private router: Router) {
 
     this.publicService.retrieveNewsFromHttp();
@@ -19,11 +20,7 @@ export class HomePage {
       }
     )
   }
-
-  details(){
-    this.router.navigate(['/news-detail']);
-  }
-
   ngOnInit() {
   }
+
 }

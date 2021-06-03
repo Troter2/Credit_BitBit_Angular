@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>news_detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <ion-header collapse="condense">
+    <ion-toolbar>
+        <ion-title size="large">Blank</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-grid>
+    <ion-row>
+        <ion-col>
+            <ion-card *ngFor="let new of news; let i = index">
+                <ion-img [src]="new.image"></ion-img>
+                <ion-card-header>
+                  <ion-card-title>{{new.title}}</ion-card-title>
+                    <ion-card-subtitle>{{new.date}}</ion-card-subtitle>
+                    <ion-card-content> {{new.content}} </ion-card-content>
+                </ion-card-header>
+            </ion-card>
+        </ion-col>
+    </ion-row>
+</ion-grid>
+
+
+</ion-content>
