@@ -9,12 +9,15 @@
 
 <ion-content>
     <ion-grid>
-        <ion-row>
+        <ion-row *ngFor="let item of about; let i = index">
             <ion-col>
-                <ion-card>
-                    <ion-card-content>Una empresa dedicada a la reparació d’equips informàtics per a centres educatius, demana disposar d’una plataforma per gestionar totes les seves reparacions. Som una empresa amb anys d'experiència que compta amb grans professionals
-                        en el sector de la informática, especialitzats en hardware i reparació d'equips. Ho podeu comprobar amb els projoectes que es mostren en la pagina principal.
-                    </ion-card-content>
+                <ion-card *ngFor="let new of news; let i = index">
+                    <ion-img [src]="new.image"></ion-img>
+                    <ion-card-header>
+                        <ion-card-title>{{item.titol}}</ion-card-title>
+                        <ion-card-subtitle>{{new.date}}</ion-card-subtitle>
+                    </ion-card-header>
+                    <ion-card-content>{{item.content}}</ion-card-content>
                 </ion-card>
             </ion-col>
         </ion-row>

@@ -6,11 +6,11 @@ export class About {
     constructor() {
         this._titol = "";
     }
-    get token(): string {
+    get titol(): string {
         return this._titol;
     }
-    set token(token: string) {
-        this._titol=token;
+    set titol(titol: string) {
+        this._titol=titol;
     }
 
     get content(): string {
