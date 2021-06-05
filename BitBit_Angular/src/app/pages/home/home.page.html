@@ -18,8 +18,8 @@
                 <ion-card (click)='details(new.id)' *ngFor="let new of news; let i = id">
                     <ion-img [src]="new.image"></ion-img>
                     <ion-card-header>
-                        <ion-card-title>{{new.title}}</ion-card-title>
-                        <ion-card-subtitle>{{new.date}}</ion-card-subtitle>
+                        <ion-card-title [innerHTML]="new.title"></ion-card-title>
+                        <ion-card-subtitle [innerHTML]="new.date"></ion-card-subtitle>
                     </ion-card-header>
                 </ion-card>
             </ion-col>

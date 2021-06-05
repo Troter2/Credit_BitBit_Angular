@@ -7,7 +7,7 @@
 <ion-content>
     <ion-list>
         <ion-item class="ion-activatable ripple-parent" *ngFor="let mail of mails; let i = index">
-            <ion-label>{{mail.about}}</ion-label>
+            <ion-label [innerHTML]="mail.about"></ion-label>
             <ion-ripple-effect></ion-ripple-effect>
             <ion-icon name="eye" color="primary"></ion-icon>
         </ion-item>
