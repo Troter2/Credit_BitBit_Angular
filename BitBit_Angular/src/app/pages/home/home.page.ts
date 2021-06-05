@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { New } from 'src/app/models/new';
 import { PublicService } from 'src/app/services/public.service';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -20,9 +21,10 @@ export class HomePage {
     )
   }
 
-  details(){
-    this.router.navigate(['/news-detail']);
+  details(id){
+    this.router.navigate(['/news-detail', id]);
   }
+
 
   ngOnInit() {
   }

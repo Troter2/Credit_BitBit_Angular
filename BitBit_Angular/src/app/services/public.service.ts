@@ -14,7 +14,8 @@ import { Router } from '@angular/router';
 })
 export class PublicService {
 
-  private _news: BehaviorSubject<New[]> = new BehaviorSubject([])
+  private _news: BehaviorSubject<New[]> = new BehaviorSubject<New[]>([]);
+  private _new: BehaviorSubject<New> = new BehaviorSubject<New>(new New());
   private _about: BehaviorSubject<About[]> = new BehaviorSubject([])
   private _tipusConsulta: BehaviorSubject<TipusConsulta[]> = new BehaviorSubject([])
 
@@ -22,6 +23,9 @@ export class PublicService {
 
   get news(): Observable<New[]> {
     return this._news.asObservable();
+  }
+  get new(): Observable<New> {
+    return this._new.asObservable();
   }
 
   retrieveNewsFromHttp() {
@@ -44,6 +48,7 @@ export class PublicService {
         response.forEach((element) => {
           console.log("news");
           let news: New = new New();
+          news.id = element.id;
           news.title = element.title;
           news.content = element.content;
           news.image = element.image;
@@ -58,6 +63,36 @@ export class PublicService {
         )
       }
     )
+  }
+
+
+
+
+
+
+
+  retrieveNewFromHttp(id: number) {
+    var data_new: New = new New();
+    this.new.pipe(take(1)).subscribe(
+    );
+    console.log(data_new);
+    this.http.get("http://localhost/Credit_BitBit_PHP/privateApi/news?id=" + id).subscribe(
+      (response: any) => {
+        data_new.id = response.id;
+        data_new.title = response.title;
+        data_new.content = response.content;
+        data_new.image = response.image;
+        data_new.date = response.date;
+        this.new.pipe(take(1)).subscribe(
+          (originalNew: New) => {
+            originalNew[id] = this.new;
+            this._new.next(originalNew);
+          }
+        );
+        this._new.next(data_new);
+      }
+    )
+
   }
 
   get about(): Observable<About[]> {
@@ -117,12 +152,12 @@ export class PublicService {
       observe: 'response' as 'response'
     }
     this.http.post('http://localhost/Credit_BitBit_PHP/privateApi/consulta', dataConsulta, options).subscribe(
-      (response:any)=>{
+      (response: any) => {
         this.router.navigate(['/home'])
-      }, 
-      (error:any)=>{
+      },
+      (error: any) => {
         // alert("error pallaso")
-      } 
+      }
     )
   }
 

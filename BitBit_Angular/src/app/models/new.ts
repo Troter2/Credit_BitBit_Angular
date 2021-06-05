@@ -1,15 +1,25 @@
 export class New {
+    private _id: string;
     private _title: string;
     private _content: string;
     private _image: string;
     private _date: Date;
 
     constructor() {
+        this._id = "";
         this._title = "";
         this._content = "";
         this._image = "";
     }
     
+
+    get id(): string {
+        return this._id;
+    }
+    set id(id: string) {
+        this._id=id;
+    }
+
     get title(): string {
         return this._title;
     }
