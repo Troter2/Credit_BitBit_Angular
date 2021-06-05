@@ -19,11 +19,12 @@ export class PublicService {
   private _about: BehaviorSubject<About[]> = new BehaviorSubject([])
   private _tipusConsulta: BehaviorSubject<TipusConsulta[]> = new BehaviorSubject([])
 
-  constructor(private http: HttpClient, private login: LoginService, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   get news(): Observable<New[]> {
     return this._news.asObservable();
   }
+
   get new(): Observable<New> {
     return this._new.asObservable();
   }
@@ -48,7 +49,7 @@ export class PublicService {
         response.forEach((element) => {
           console.log("news");
           let news: New = new New();
-          news.id = element.id;
+          news.id= element.id;
           news.title = element.title;
           news.content = element.content;
           news.image = element.image;
@@ -66,11 +67,6 @@ export class PublicService {
   }
 
 
-
-
-
-
-
   retrieveNewFromHttp(id: number) {
     var data_new: New = new New();
     this.new.pipe(take(1)).subscribe(
@@ -78,6 +74,7 @@ export class PublicService {
     console.log(data_new);
     this.http.get("http://localhost/Credit_BitBit_PHP/privateApi/news?id=" + id).subscribe(
       (response: any) => {
+        console.log('response '+response)
         data_new.id = response.id;
         data_new.title = response.title;
         data_new.content = response.content;
@@ -94,6 +91,7 @@ export class PublicService {
     )
 
   }
+
 
   get about(): Observable<About[]> {
     return this._about.asObservable();
@@ -156,7 +154,6 @@ export class PublicService {
         this.router.navigate(['/home'])
       },
       (error: any) => {
-        // alert("error pallaso")
       }
     )
   }

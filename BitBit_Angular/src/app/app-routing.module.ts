@@ -9,27 +9,38 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
   },
   {
     path: 'about',
-    loadChildren: () => import('./pages/about/about.module').then( m => m.AboutPageModule)
+    loadChildren: () => import('./pages/about/about.module').then(m => m.AboutPageModule)
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
   },
   {
     path: 'contact',
-    loadChildren: () => import('./pages/contact/contact.module').then( m => m.ContactPageModule)
+    loadChildren: () => import('./pages/contact/contact.module').then(m => m.ContactPageModule)
   },
   {
     path: 'logout',
-    loadChildren: () => import('./pages/logout/logout.module').then( m => m.LogoutPageModule)
+    loadChildren: () => import('./pages/logout/logout.module').then(m => m.LogoutPageModule)
   },
   {
     path: 'news-detail/:id',
-    loadChildren: () => import('./pages/news-detail/news-detail.module').then( m => m.NewsDetailPageModule)
+    loadChildren: () => import('./pages/news-detail/news-detail.module').then(m => m.NewsDetailPageModule)
+  }, {
+    path: 'send-mail',
+    loadChildren: () => import('./pages/send-mail/send-mail.module').then(m => m.SendMailPageModule)
+  },
+  {
+    path: 'list-mail',
+    loadChildren: () => import('./pages/list-mail/list-mail.module').then(m => m.ListMailPageModule)
+  },
+  {
+    path: 'mail-detail',
+    loadChildren: () => import('./pages/mail-detail/mail-detail.module').then(m => m.MailDetailPageModule)
   },
 
 

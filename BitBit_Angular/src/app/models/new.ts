@@ -11,7 +11,7 @@ export class New {
         this._content = "";
         this._image = "";
     }
-    
+
 
     get id(): string {
         return this._id;
@@ -26,21 +26,21 @@ export class New {
     set title(title: string) {
         this._title=title;
     }
-    
+
     get content(): string {
         return this._content;
     }
     set content(content: string) {
         this._content=content;
     }
-    
+
     get image(): string {
         return this._image;
     }
     set image(image: string) {
         this._image='http://localhost/Credit_BitBit_PHP/assets/uploads/files/'+image;
     }
-    
+
     get date(): Date {
         return this._date;
     }
