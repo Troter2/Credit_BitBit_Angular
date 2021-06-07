@@ -17,7 +17,11 @@ export class ListMailPage implements OnInit {
       (mailList: Mail[]) => {
         this.mails = mailList;
       }
-    )
+      )
+      console.log(this.mails)
+  }
+  view_mail(id){
+    this.router.navigate(['/mail-detail', id]);
   }
   ngOnInit() {
   }

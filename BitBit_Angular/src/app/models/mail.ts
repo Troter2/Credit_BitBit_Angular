@@ -6,6 +6,7 @@ export class Mail {
     private _to: string;
     private _about: string;
     private _content: string;
+    private _id: number;
 
     constructor() {
         this._from = "";
@@ -14,6 +15,12 @@ export class Mail {
         this._content = "";
     }
 
+    get id(): number {
+        return this._id;
+    }
+    set id(id: number)  {
+        this._id = id;
+    }
     get from(): string {
         return this._from;
     }

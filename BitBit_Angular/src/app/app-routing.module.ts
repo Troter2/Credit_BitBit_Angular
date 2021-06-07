@@ -39,7 +39,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/list-mail/list-mail.module').then(m => m.ListMailPageModule)
   },
   {
-    path: 'mail-detail',
+    path: 'mail-detail/:id',
     loadChildren: () => import('./pages/mail-detail/mail-detail.module').then(m => m.MailDetailPageModule)
   },
 

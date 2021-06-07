@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Mail } from 'src/app/models/mail';
+import { MailService } from 'src/app/services/mail.service';
+import { PublicService } from 'src/app/services/public.service';
 
 @Component({
   selector: 'app-mail-detail',
@@ -6,9 +10,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mail-detail.page.scss'],
 })
 export class MailDetailPage implements OnInit {
-
-  constructor() { }
-
+  public mail: Mail;
+  private id: number;
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private MailService: MailService) {
+    this.activateRoute.params.subscribe(
+      (params: ParamMap) => {
+        if (params['id'] == null) {
+          this.router.navigate(["/home"])
+        } else {
+          this.id = Number(params['id']);
+          this.MailService.retrieveMailFromHttp(this.id);
+          this.MailService.mail.subscribe(
+            (data_mail: Mail) => {
+              this.mail = data_mail;
+            }
+          )
+        }
+      }
+    );
+  
+  }
   ngOnInit() {
   }
 

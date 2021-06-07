@@ -1,9 +1,20 @@
 <ion-header>
     <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
         <ion-title>mailDetail</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <ion-card>
+        <ion-card-header>
+            <ion-card-subtitle>{{mail.from}}</ion-card-subtitle>
+            <ion-card-title>{{mail.about}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            {{mail.content}}
+        </ion-card-content>
+    </ion-card>
 </ion-content>

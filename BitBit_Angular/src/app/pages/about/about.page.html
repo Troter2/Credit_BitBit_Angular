@@ -14,10 +14,10 @@
                 <ion-card *ngFor="let new of news; let i = index">
                     <ion-img [src]="new.image"></ion-img>
                     <ion-card-header>
-                        <ion-card-title>{{item.titol}}</ion-card-title>
-                        <ion-card-subtitle>{{new.date}}</ion-card-subtitle>
+                        <ion-card-title [innerHTML]="item.titol"></ion-card-title>
+                        <ion-card-subtitle [innerHTML]="item.date"></ion-card-subtitle>
                     </ion-card-header>
-                    <ion-card-content>{{item.content}}</ion-card-content>
+                    <ion-card-content [innerHTML]="item.content"></ion-card-content>
                 </ion-card>
             </ion-col>
         </ion-row>
