@@ -41,7 +41,11 @@ const routes: Routes = [
   {
     path: 'mail-detail/:id',
     loadChildren: () => import('./pages/mail-detail/mail-detail.module').then(m => m.MailDetailPageModule)
+  },  {
+    path: 'user-view',
+    loadChildren: () => import('./pages/user-view/user-view.module').then( m => m.UserViewPageModule)
   },
+
 
 
 ];

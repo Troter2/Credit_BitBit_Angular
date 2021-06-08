@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -22,6 +22,7 @@ export class MailService {
   }
 
   retrieveMailsFromHttp() {
+
     let size = 0;
     this.mails.pipe(take(1)).subscribe(
       (mailList: Mail[]) => {
@@ -29,24 +30,27 @@ export class MailService {
       }
     );
     console.log("enter");
-    let token = JSON.parse(localStorage.getItem("USER_DATA"));
-    this.http.get("http://localhost/Credit_BitBit_PHP/privateApi/mail?token=" + token['token']).subscribe(
-      (response: any[]) => {
+    console.log(localStorage);
+    let token = JSON.parse(localStorage.getItem("USER_DATA"));   //AQUI ESTA EL ERROR
+    let options = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token['token'] }),
+      observe: 'response' as 'response'
+    }
+    this.http.get("http://localhost/Credit_BitBit_PHP/privateApi/mail", options).subscribe(
+      (response: any) => {
         console.log(response)
-        if (response.length == size) {
-          // console.log("first input");
-          return;
-        }
-        else this._mails.next([]);
+        this.renewToken(response.body.token);
+        this._mails.next([]);
         console.log("mails1");
-        response.forEach((element) => {
+        response.body.mails.forEach((element) => {
+
           console.log("mails");
           let mail: Mail = new Mail();
-          mail.from = element.mails.from;
-          mail.to = element.mails.to;
-          mail.about = element.mails.about;
-          mail.content = element.mails.content;
-          mail.id = element.mails.id_msg;
+          mail.from = element.from;
+          mail.to = element.to;
+          mail.about = element.about;
+          mail.content = element.content;
+          mail.id = element.id_msg;
 
           console.log(element)
           this.mails.pipe(take(1)).subscribe(
@@ -64,18 +68,21 @@ export class MailService {
   retrieveMailFromHttp(id: number) {
     var data_mail: Mail = new Mail();
     this.mail.pipe(take(1)).subscribe(
-      );
-      console.log(data_mail);
-      let token = JSON.parse(localStorage.getItem("USER_DATA"));
-      console.log('response ' + "http://localhost/Credit_BitBit_PHP/privateApi/mail?id=" + id + "&&token=" + token['token'])
-    this.http.get("http://localhost/Credit_BitBit_PHP/privateApi/mail?id=" + id + "&&token=" + token['token']).subscribe(
+    );
+    console.log(data_mail);
+    let token = JSON.parse(localStorage.getItem("USER_DATA"));   //AQUI ESTA EL ERROR
+    let options = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token['token'] }),
+      observe: 'response' as 'response'
+    }
+    console.log('response ' + "http://localhost/Credit_BitBit_PHP/privateApi/mail?id=" + id + "&&token=" + token['token'])
+    this.http.get("http://localhost/Credit_BitBit_PHP/privateApi/mail?id=" + id, options).subscribe(
       (response: any) => {
-        data_mail.id = response.id_msg;
-        data_mail.from = response.from;
-        data_mail.to = response.to;
-        data_mail.about = response.about;
-        data_mail.content = response.content;
-        console.log(data_mail);
+        data_mail.id = response.body.id_msg;
+        data_mail.from = response.body.from;
+        data_mail.to = response.body.to;
+        data_mail.about = response.body.about;
+        data_mail.content = response.body.content;
         this.mail.pipe(take(1)).subscribe(
           (originalMail: Mail) => {
             originalMail[id] = this.mail;
@@ -86,5 +93,39 @@ export class MailService {
       }
     )
 
+  }
+
+  addMailToHttp(mail: Mail) {
+    let dataMail = {
+      to: mail.to,
+      content: mail.content,
+      about: mail.about,
+    }
+    console.log(dataMail);
+    let token = JSON.parse(localStorage.getItem("USER_DATA"));   //AQUI ESTA EL ERROR
+    let options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json', 'Authorization': 'Bearer '+token['token']
+      }),
+      observe: 'response' as 'response'
+    }
+    console.log(options)
+    this.http.post('http://localhost/Credit_BitBit_PHP/privateApi/mail', dataMail, options).subscribe(
+      (response: any) => {
+        console.log(response)
+        this.renewToken(response.body.token);
+        this.router.navigate(['/home'])
+      },
+      (error: any) => {
+        this.router.navigate(['/about'])
+      }
+    )
+  }
+  renewToken(token) {
+    let infouser = {
+      'token': token
+    }
+    console.log(infouser)
+    localStorage.setItem("USER_DATA", JSON.stringify(infouser));
   }
 }

@@ -1,9 +1,31 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>sendMail</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Nou correu</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <ion-list lines="full" class="ion-no-margin">
+
+
+        <ion-item>
+            <ion-label position="stacked">To</ion-label>
+            <ion-input type="text" [(ngModel)]="to"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">Assumpte</ion-label>
+            <ion-input type="text" [(ngModel)]="assumpte"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">Contingut</ion-label>
+            <ion-textarea [(ngModel)]="content" placeholder="Inserta la teva consulta..."></ion-textarea>
+        </ion-item>
+        <ion-item>
+            <ion-button (click)='sendMail()'>Submit</ion-button>
+        </ion-item>
+    </ion-list>
 
 </ion-content>

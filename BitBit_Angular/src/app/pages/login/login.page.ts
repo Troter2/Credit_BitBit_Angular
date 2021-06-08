@@ -19,6 +19,7 @@ export class LoginPage implements OnInit {
     this.loginService.login(this.user, this.pass).subscribe(
       (response: any) => {
         let user: User = new User();
+        console.log(response.body.token)
         user.token = response.body.token;
         this.loginService.user = user;
         this.ErrorLogin = false;
