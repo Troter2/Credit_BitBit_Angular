@@ -9,8 +9,9 @@ import { LoginService } from 'src/app/services/login.service';
   templateUrl: './user-inci.page.html',
   styleUrls: ['./user-inci.page.scss'],
 })
-export class UserInciPage implements OnInit {
 
+export class UserInciPage implements OnInit {
+  public searchInci: string="";
   public incis: Inci[] = [];
   constructor(private router: Router, private activateRoute: ActivatedRoute,private InciService : InciService, private loginService:LoginService) { 
     this.activateRoute.params.subscribe(
@@ -35,6 +36,13 @@ export class UserInciPage implements OnInit {
   view_inci(id) {
     this.router.navigate(['/inci-detail', id]);
   }
+
+  filterInci(inci : Inci){
+    if(this.searchInci == "") return true;
+    if(this.searchInci == inci.desc) return true;
+    else return false;
+  }
+
 
   ngOnInit() {
   }
