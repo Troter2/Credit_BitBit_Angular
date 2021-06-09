@@ -55,39 +55,36 @@ export class LoginService {
 
   }
 
-  // retrieveUserFromHttp() {
-  //   var data_user: InfoUser = new InfoUser();
-  //   this.infoUser.pipe(take(1)).subscribe(
-  //   );
-  //   let token = JSON.parse(localStorage.getItem("USER_DATA"));   //AQUI ESTA EL ERROR
-  //   let options = {
-  //     headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token['token'] }),
-  //     observe: 'response' as 'response'
-  //   }
-  //   this.http.get("http://localhost/Credit_BitBit_PHP/privateApi/getUser", options).subscribe(
-  //     (response: any) => {
-  //       console.log(response)
-  //       this.renewToken(response.body.token);
-  //       data_user.company = response.body.user.company;
-  //       data_user.email = response.body.user.email;
-  //       data_user.first_name = response.body.user.first_name;
-  //       data_user.last_name = response.body.user.last_name;
-  //       data_user.tlf = response.body.user.tlf;
-  //       data_user.city = response.body.user.city;
-  //       data_user.username = response.body.user.username;
-  //       this.infoUser.pipe(take(1)).subscribe(
-  //         (originalUser: InfoUser) => {
-  //           originalUser = this.infoUser;
-  //           this._infoUser.next(originalUser);
-  //         }
-  //       );
-  //       console.log(response.body.user.username);
-  //     }
-  //   )
-  //   console.log('data_user');
-  //   console.log(data_user);
+  retrieveUserFromHttp() {
+    var data_user: InfoUser = new InfoUser();
+    this.infoUser.pipe(take(1)).subscribe(
+    );
+    let token = JSON.parse(localStorage.getItem("USER_DATA"));   //AQUI ESTA EL ERROR
+    let options = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token['token'] }),
+      observe: 'response' as 'response'
+    }
+    this.http.get("http://localhost/Credit_BitBit_PHP/privateApi/getUser", options).subscribe(
+      (response: any) => {
+        console.log(response)
+        this.renewToken(response.body.token);
+        data_user.company = response.body.user.company;
+        data_user.email = response.body.user.email;
+        data_user.first_name = response.body.user.first_name;
+        data_user.last_name = response.body.user.last_name;
+        data_user.tlf = response.body.user.tlf;
+        data_user.city = response.body.user.city;
+        data_user.username = response.body.user.username;
 
-  // }
+        this._infoUser.next(data_user);
+        
+        console.log(response.body.user.username);
+      }
+    )
+    console.log('data_user');
+    console.log(data_user);
+
+  }
 
   renewToken(token) {
     let group = JSON.parse(localStorage.getItem("USER_DATA"))

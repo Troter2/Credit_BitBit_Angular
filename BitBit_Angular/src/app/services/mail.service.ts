@@ -29,8 +29,6 @@ export class MailService {
         size = mailList.length;
       }
     );
-    console.log("enter");
-    console.log(localStorage);
     let token = JSON.parse(localStorage.getItem("USER_DATA"));   //AQUI ESTA EL ERROR
     let options = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token['token'] }),
@@ -63,20 +61,20 @@ export class MailService {
     var data_mail: Mail = new Mail();
     this.mail.pipe(take(1)).subscribe(
     );
-    console.log(data_mail);
     let token = JSON.parse(localStorage.getItem("USER_DATA"));   //AQUI ESTA EL ERROR
     let options = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token['token'] }),
       observe: 'response' as 'response'
     }
-    console.log('response ' + "http://localhost/Credit_BitBit_PHP/privateApi/mail?id=" + id + "&&token=" + token['token'])
     this.http.get("http://localhost/Credit_BitBit_PHP/privateApi/mail?id=" + id, options).subscribe(
       (response: any) => {
-        data_mail.id = response.body.id_msg;
-        data_mail.from = response.body.from;
-        data_mail.to = response.body.to;
-        data_mail.about = response.body.about;
-        data_mail.content = response.body.content;
+
+        this.renewToken(response.body.token);
+        data_mail.id = response.body.mails.id_msg;
+        data_mail.from = response.body.mails.from;
+        data_mail.to = response.body.mails.to;
+        data_mail.about = response.body.mails.about;
+        data_mail.content = response.body.mails.content;
         this.mail.pipe(take(1)).subscribe(
           (originalMail: Mail) => {
             originalMail[id] = this.mail;
@@ -95,18 +93,15 @@ export class MailService {
       content: mail.content,
       about: mail.about,
     }
-    console.log(dataMail);
     let token = JSON.parse(localStorage.getItem("USER_DATA"));   //AQUI ESTA EL ERROR
     let options = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json', 'Authorization': 'Bearer '+token['token']
+        'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token['token']
       }),
       observe: 'response' as 'response'
     }
-    console.log(options)
     this.http.post('http://localhost/Credit_BitBit_PHP/privateApi/mail', dataMail, options).subscribe(
       (response: any) => {
-        console.log(response)
         this.renewToken(response.body.token);
         this.router.navigate(['/home'])
       },
@@ -116,12 +111,11 @@ export class MailService {
     )
   }
   renewToken(token) {
-    let group=JSON.parse(localStorage.getItem("USER_DATA"))
+    let group = JSON.parse(localStorage.getItem("USER_DATA"))
     let infouser = {
       'token': token,
       'group': group['group']
     }
-    console.log(infouser)
     localStorage.setItem("USER_DATA", JSON.stringify(infouser));
   }
 }

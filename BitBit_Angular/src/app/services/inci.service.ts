@@ -64,6 +64,46 @@ export class InciService {
     )
   }
 
+
+  retrieveInciFromHttp(id: number) {
+    var data_inci: Inci = new Inci();
+    this.inci.pipe(take(1)).subscribe(
+    );
+    console.log(data_inci);
+    let token = JSON.parse(localStorage.getItem("USER_DATA"));   //AQUI ESTA EL ERROR
+    let options = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token['token'] }),
+      observe: 'response' as 'response'
+    }
+    this.http.get("http://localhost/Credit_BitBit_PHP/privateApi/incidencies?id=" + id, options).subscribe(
+      (response: any) => {
+        this.renewToken(response.body.token);
+        data_inci.id_inci = response.body.incidencia.id_inci;
+        data_inci.id_user_propietari = response.body.incidencia.id_user_propietari;
+        data_inci.nom_propietari = response.body.incidencia.nom_propietari;
+        data_inci.marca = response.body.incidencia.marca;
+        data_inci.numero_serie = response.body.incidencia.numero_serie;
+        data_inci.desc_averia = response.body.incidencia.desc_averia;
+        data_inci.marca = response.body.incidencia.marca;
+        data_inci.desc = response.body.incidencia.desc;
+        data_inci.tlf = response.body.incidencia.tlf;
+        data_inci.out_date = response.body.incidencia.out_date;
+        data_inci.entry_date = response.body.incidencia.entry_date;
+        console.log(data_inci);
+        this.inci.pipe(take(1)).subscribe(
+          (originalMail: Inci) => {
+            originalMail[id] = this.inci;
+            this._inci.next(originalMail);
+          }
+        );
+        this._inci.next(data_inci);
+      }
+    )
+
+  }
+
+
+
   renewToken(token) {
     let group = JSON.parse(localStorage.getItem("USER_DATA"))
     let infouser = {

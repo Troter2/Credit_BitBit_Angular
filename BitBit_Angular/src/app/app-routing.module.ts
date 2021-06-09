@@ -51,7 +51,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/user-inci/user-inci.module').then(m => m.UserInciPageModule)
   },
   {
-    path: 'inci-detail',
+    path: 'inci-detail/:id',
     loadChildren: () => import('./pages/inci-detail/inci-detail.module').then(m => m.InciDetailPageModule)
   },
 
