@@ -21,7 +21,7 @@ export class LoginService {
     }
     localStorage.setItem("USER_DATA", JSON.stringify(userdata));
   }
- 
+
 
   get user(): User {
     let userStr = localStorage.getItem("USER_DATA");
