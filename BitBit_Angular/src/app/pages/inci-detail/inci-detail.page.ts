@@ -12,18 +12,17 @@ export class InciDetailPage implements OnInit {
 
   public inci: Inci;
   private id: number;
-  constructor(private router: Router, private activateRoute: ActivatedRoute, private MailService: InciService) {
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private InciService: InciService) {
     this.activateRoute.params.subscribe(
       (params: ParamMap) => {
         if (params['id'] == null) {
           this.router.navigate(["/home"])
         } else {
           this.id = Number(params['id']);
-          this.MailService.retrieveInciFromHttp(this.id);
-          this.MailService.inci.subscribe(
+          this.InciService.retrieveInciFromHttp(this.id);
+          this.InciService.inci.subscribe(
             (data_inci: Inci) => {
               this.inci = data_inci;
-              console.log(this.inci);
             }
           )
         }

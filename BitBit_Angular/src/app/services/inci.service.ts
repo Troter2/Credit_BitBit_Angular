@@ -53,6 +53,7 @@ export class InciService {
           inci.diagnosis_prev = element.diagnosis_prev;
           inci.entry_date = element.entry_date;
           inci.out_date = element.out_date;
+          inci.uuid = element.uuid;
           this.incis.pipe(take(1)).subscribe(
             (originalIncis: Inci[]) => {
               this._incis.next(originalIncis.concat(inci));
@@ -89,6 +90,7 @@ export class InciService {
         data_inci.tlf = response.body.incidencia.tlf;
         data_inci.out_date = response.body.incidencia.out_date;
         data_inci.entry_date = response.body.incidencia.entry_date;
+        data_inci.uuid = response.body.incidencia.uuid;
         console.log(data_inci);
         this.inci.pipe(take(1)).subscribe(
           (originalMail: Inci) => {

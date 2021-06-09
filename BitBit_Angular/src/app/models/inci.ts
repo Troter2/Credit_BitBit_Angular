@@ -9,11 +9,13 @@ export class Inci {
     private _tlf: string;
     private _desc_averia: string;
     private _diagnosis_prev: string;
+    private _uuid: string;
     private _entry_date: Date;
     private _out_date: Date;
 
     constructor() {
         this._desc = "";
+        this._uuid = "";
         this._id_user_propietari = "";
         this._nom_propietari = "";
         this._marca = "";
@@ -35,6 +37,12 @@ export class Inci {
     }
     set desc(desc: string)  {
         this._desc = desc;
+    }
+    get uuid(): string {
+        return this._uuid;
+    }
+    set uuid(uuid: string)  {
+        this._uuid = uuid;
     }
     
     get id_user_propietari(): string {
