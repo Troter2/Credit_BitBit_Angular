@@ -41,13 +41,18 @@ const routes: Routes = [
   {
     path: 'mail-detail/:id',
     loadChildren: () => import('./pages/mail-detail/mail-detail.module').then(m => m.MailDetailPageModule)
-  },  {
+  },
+  {
     path: 'user-view',
-    loadChildren: () => import('./pages/user-view/user-view.module').then( m => m.UserViewPageModule)
+    loadChildren: () => import('./pages/user-view/user-view.module').then(m => m.UserViewPageModule)
   },
   {
     path: 'user-inci',
-    loadChildren: () => import('./pages/user-inci/user-inci.module').then( m => m.UserInciPageModule)
+    loadChildren: () => import('./pages/user-inci/user-inci.module').then(m => m.UserInciPageModule)
+  },
+  {
+    path: 'inci-detail',
+    loadChildren: () => import('./pages/inci-detail/inci-detail.module').then(m => m.InciDetailPageModule)
   },
 
 

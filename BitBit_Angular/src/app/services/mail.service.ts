@@ -116,8 +116,10 @@ export class MailService {
     )
   }
   renewToken(token) {
+    let group=JSON.parse(localStorage.getItem("USER_DATA"))
     let infouser = {
-      'token': token
+      'token': token,
+      'group': group['group']
     }
     console.log(infouser)
     localStorage.setItem("USER_DATA", JSON.stringify(infouser));

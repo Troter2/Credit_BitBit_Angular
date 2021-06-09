@@ -9,7 +9,7 @@
 
 <ion-content>
     <ion-list>
-        <ion-item (click)='view_mail(inci.id_inci)' class="ion-activatable ripple-parent" *ngFor="let inci of incis; let i = index">
+        <ion-item (click)='view_inci(inci.id_inci)' class="ion-activatable ripple-parent" *ngFor="let inci of incis; let i = index">
             <ion-label [innerHTML]="inci.marca"></ion-label>
             <ion-ripple-effect></ion-ripple-effect>
             <ion-icon name="eye" color="primary"></ion-icon>
