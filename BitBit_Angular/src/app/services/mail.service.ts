@@ -38,21 +38,15 @@ export class MailService {
     }
     this.http.get("http://localhost/Credit_BitBit_PHP/privateApi/mail", options).subscribe(
       (response: any) => {
-        console.log(response)
         this.renewToken(response.body.token);
         this._mails.next([]);
-        console.log("mails1");
         response.body.mails.forEach((element) => {
-
-          console.log("mails");
           let mail: Mail = new Mail();
           mail.from = element.from;
           mail.to = element.to;
           mail.about = element.about;
           mail.content = element.content;
           mail.id = element.id_msg;
-
-          console.log(element)
           this.mails.pipe(take(1)).subscribe(
             (originalMails: Mail[]) => {
               this._mails.next(originalMails.concat(mail));

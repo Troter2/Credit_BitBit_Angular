@@ -21,6 +21,8 @@ export class LoginPage implements OnInit {
         let user: User = new User();
         console.log(response.body.token)
         user.token = response.body.token;
+        console.log(response.body.group)
+        user.group = response.body.group;
         this.loginService.user = user;
         this.ErrorLogin = false;
         this.router.navigate(['/home']);

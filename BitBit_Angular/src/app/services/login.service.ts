@@ -16,10 +16,12 @@ export class LoginService {
 
   set user(user: User) {
     let userdata = {
-      'token': user.token
+      'token': user.token,
+      'group': user.group
     }
     localStorage.setItem("USER_DATA", JSON.stringify(userdata));
   }
+ 
 
   get user(): User {
     let userStr = localStorage.getItem("USER_DATA");
@@ -27,6 +29,7 @@ export class LoginService {
     if (userStr != null) {
       let userObj = JSON.parse(userStr);
       user.token = userObj.token;
+      user.group = userObj.group;
     }
     return user;
   }

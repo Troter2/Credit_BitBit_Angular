@@ -45,6 +45,10 @@ const routes: Routes = [
     path: 'user-view',
     loadChildren: () => import('./pages/user-view/user-view.module').then( m => m.UserViewPageModule)
   },
+  {
+    path: 'user-inci',
+    loadChildren: () => import('./pages/user-inci/user-inci.module').then( m => m.UserInciPageModule)
+  },
 
 
 
