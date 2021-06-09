@@ -32,6 +32,10 @@ export class UserInciPage implements OnInit {
     console.log(this.incis)
   }
 
+  view_inci(id) {
+    this.router.navigate(['/inci-detail', id]);
+  }
+
   ngOnInit() {
   }
 
