@@ -61,6 +61,10 @@ const routes: Routes = [
     path: 'tasca-detail',
     loadChildren: () => import('./pages/tasca-detail/tasca-detail.module').then( m => m.TascaDetailPageModule)
   },
+  {
+    path: 'edit-user',
+    loadChildren: () => import('./pages/edit-user/edit-user.module').then( m => m.EditUserPageModule)
+  },
 
 
 

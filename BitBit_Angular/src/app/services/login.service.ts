@@ -4,6 +4,7 @@ import { User } from '../models/user';
 import { InfoUser } from '../models/info-user';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class LoginService {
 
   private _infoUser: BehaviorSubject<InfoUser> = new BehaviorSubject<InfoUser>(new InfoUser());
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   set user(user: User) {
     let userdata = {
@@ -33,6 +34,7 @@ export class LoginService {
     }
     return user;
   }
+
   get infoUser(): Observable<InfoUser> {
     return this._infoUser.asObservable();
   }
@@ -72,12 +74,12 @@ export class LoginService {
         data_user.email = response.body.user.email;
         data_user.first_name = response.body.user.first_name;
         data_user.last_name = response.body.user.last_name;
-        data_user.tlf = response.body.user.tlf;
+        data_user.phone = response.body.user.phone;
         data_user.city = response.body.user.city;
         data_user.username = response.body.user.username;
 
         this._infoUser.next(data_user);
-        
+
         console.log(response.body.user.username);
       }
     )
@@ -85,6 +87,44 @@ export class LoginService {
     console.log(data_user);
 
   }
+
+
+  updateUserToHttp(username, email, first_name, last_name, company, phone, city) {
+    let updateUser = {
+      username: username,
+      email: email,
+      first_name: first_name,
+      last_name: last_name,
+      company: company,
+      phone: phone,
+      city: city
+    }
+    console.log(updateUser);
+    let options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization':"Bearer " +this.user.token
+      }),
+      observe: 'response' as 'response'
+    }
+    this.http.put("http://localhost/Credit_BitBit_PHP/privateApi/getUser", updateUser , options).subscribe(
+      (response: any) => {
+        this.renewToken(response.body.token);
+        let infoUser = new InfoUser();
+        infoUser.username = username;
+        infoUser.first_name = first_name;
+        infoUser.last_name = last_name;
+        infoUser.email = email;
+        infoUser.phone = phone;
+        // this.infoUser = infoUser;
+        this.router.navigate(['/user-view']);
+      },
+      (error: any) => {
+        console.log("ERROR:" + error);
+      }
+    )
+  }
+
 
   renewToken(token) {
     let group = JSON.parse(localStorage.getItem("USER_DATA"))

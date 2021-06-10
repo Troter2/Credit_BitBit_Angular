@@ -15,21 +15,22 @@ export class ListMailPage implements OnInit {
 
     this.activateRoute.params.subscribe(
       (params: ParamMap) => {
-        console.log('loginService test')
-        if (this.loginService.user.token == '') {
+        console.log('================')
+        console.log(this.loginService.user.group)
+        if (this.loginService.user.group == '') {
           this.router.navigate(["/home"])
         } else {
+          this.mailService.retrieveMailsFromHttp();
+          this.mailService.mails.subscribe(
+            (mailList: Mail[]) => {
+              this.mails = mailList;
+            }
+          )
+          console.log(this.mails)
 
         }
       }
     );
-    this.mailService.retrieveMailsFromHttp();
-    this.mailService.mails.subscribe(
-      (mailList: Mail[]) => {
-        this.mails = mailList;
-      }
-    )
-    console.log(this.mails)
   }
   view_mail(id) {
     this.router.navigate(['/mail-detail', id]);

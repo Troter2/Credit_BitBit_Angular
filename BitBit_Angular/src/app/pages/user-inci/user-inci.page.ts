@@ -1,3 +1,4 @@
+import { UpperCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Inci } from 'src/app/models/inci';
@@ -11,9 +12,9 @@ import { LoginService } from 'src/app/services/login.service';
 })
 
 export class UserInciPage implements OnInit {
-  public searchInci: string="";
+  public searchInci: string = "";
   public incis: Inci[] = [];
-  constructor(private router: Router, private activateRoute: ActivatedRoute,private InciService : InciService, private loginService:LoginService) { 
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private InciService: InciService, private loginService: LoginService) {
     this.activateRoute.params.subscribe(
       (params: ParamMap) => {
         console.log('loginService test')
@@ -37,9 +38,10 @@ export class UserInciPage implements OnInit {
     this.router.navigate(['/inci-detail', id]);
   }
 
-  filterInci(inci : Inci){
-    if(this.searchInci == "") return true;
-    if(this.searchInci == inci.desc) return true;
+  filterInci(inci: Inci) {
+    if (this.searchInci == "") return true;
+    if (inci.marca.toUpperCase().includes(this.searchInci.toUpperCase())) return true;
+    if (inci.desc.toUpperCase().includes(this.searchInci.toUpperCase())) return true;
     else return false;
   }
 

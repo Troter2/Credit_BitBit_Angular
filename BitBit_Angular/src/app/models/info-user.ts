@@ -4,7 +4,7 @@ export class InfoUser {
     private _first_name: string;
     private _last_name: string;
     private _company: string;
-    private _tlf: string;
+    private _phone: string;
     private _city: string;
 
     constructor() {
@@ -45,11 +45,11 @@ export class InfoUser {
     set company(company: string) {
         this._company=company;
     }
-    get tlf() : string {
-        return this._tlf;
+    get phone() : string {
+        return this._phone;
     }
-    set tlf(tlf: string) {
-        this._tlf=tlf;
+    set phone(phone: string) {
+        this._phone=phone;
     }
     get city() : string {
         return this._city;

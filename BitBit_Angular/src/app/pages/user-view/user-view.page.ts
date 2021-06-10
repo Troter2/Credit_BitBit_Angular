@@ -23,7 +23,7 @@ export class UserViewPage implements OnInit {
             (data_user: InfoUser) => {
               console.log("AQUI")
               this.infoUser = data_user;
-              console.log(data_user)
+              console.log(this.infoUser)
             }
           )
         }

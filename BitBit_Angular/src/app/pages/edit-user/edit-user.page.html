@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>editUser</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-item>
+        <ion-label position="stacked">Username</ion-label>
+        <ion-input type="text" [(ngModel)]="infoUser.username"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Correu electronic</ion-label>
+        <ion-input type="text" [(ngModel)]="infoUser.email"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Nom</ion-label>
+        <ion-input type="text" [(ngModel)]="infoUser.first_name"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Cognoms</ion-label>
+        <ion-input type="text" [(ngModel)]="infoUser.last_name"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Companyia</ion-label>
+        <ion-input type="text" [(ngModel)]="infoUser.company"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Telefon</ion-label>
+        <ion-input type="text" [(ngModel)]="infoUser.phone"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Ciutat</ion-label>
+        <ion-input type="text" [(ngModel)]="infoUser.city"></ion-input>
+    </ion-item>
+    <ion-button (click)='updateUser()'>Envia</ion-button>
+</ion-content>

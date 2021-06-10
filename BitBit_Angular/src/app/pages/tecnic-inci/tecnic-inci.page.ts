@@ -43,8 +43,8 @@ export class TecnicInciPage implements OnInit {
   }
 
   filterTasca(tasca : Tasca){
-    if(this.searchTasca == "") return true;
-    if(this.searchTasca == tasca.marca) return true;
+    if (this.searchTasca == "") return true;
+    if (tasca.marca.toUpperCase().includes(this.searchTasca.toUpperCase())) return true;
     else return false;
   }
 
