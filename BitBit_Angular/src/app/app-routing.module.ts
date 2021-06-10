@@ -53,7 +53,11 @@ const routes: Routes = [
   {
     path: 'inci-detail/:id',
     loadChildren: () => import('./pages/inci-detail/inci-detail.module').then(m => m.InciDetailPageModule)
+  },  {
+    path: 'tecnic-inci',
+    loadChildren: () => import('./pages/tecnic-inci/tecnic-inci.module').then( m => m.TecnicInciPageModule)
   },
+
 
 
 
