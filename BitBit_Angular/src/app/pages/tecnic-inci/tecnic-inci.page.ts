@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Inci } from 'src/app/models/inci';
 import { Tasca } from 'src/app/models/tasca';
 import { InciService } from 'src/app/services/inci.service';
 import { LoginService } from 'src/app/services/login.service';

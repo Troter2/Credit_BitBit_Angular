@@ -58,6 +58,46 @@ export class TascaService {
       }
     )
   }
+
+
+
+  retrieveTascaFromHttp(id: number) {
+    var detail_tasca: Tasca = new Tasca();
+    this.tasca.pipe(take(1)).subscribe(
+    );
+    console.log(detail_tasca);
+    let token = JSON.parse(localStorage.getItem("USER_DATA"));   //AQUI ESTA EL ERROR
+    let options = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token['token'] }),
+      observe: 'response' as 'response'
+    }
+    this.http.get("http://localhost/Credit_BitBit_PHP/privateApi/tasques?id=" + id, options).subscribe(
+      (response: any) => {
+        this.renewToken(response.body.token);
+        detail_tasca.id_inci = response.body.token.id_inci;
+        detail_tasca.id_tasca = response.body.token.id_tasca;
+        detail_tasca.desc = response.body.token.desc;
+        detail_tasca.id_user = response.body.token.id_user;
+        detail_tasca.status = response.body.token.status;
+        detail_tasca.marca = response.body.token.marca;
+        detail_tasca.accions = response.body.token.accions;
+        detail_tasca.start_date = response.body.token.start_date;
+        detail_tasca.end_date = response.body.token.end_date;
+        detail_tasca.canvas = response.body.token.canvas;
+        console.log(detail_tasca);
+        this.tasca.pipe(take(1)).subscribe(
+          (originalMail: Tasca) => {
+            originalMail[id] = this.tasca;
+            this._tasca.next(originalMail);
+          }
+        );
+        this._tasca.next(detail_tasca);
+      }
+    )
+
+  }
+
+
   renewToken(token) {
     let group = JSON.parse(localStorage.getItem("USER_DATA"))
     let infouser = {
