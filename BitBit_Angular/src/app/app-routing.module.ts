@@ -57,6 +57,10 @@ const routes: Routes = [
     path: 'tecnic-inci',
     loadChildren: () => import('./pages/tecnic-inci/tecnic-inci.module').then( m => m.TecnicInciPageModule)
   },
+  {
+    path: 'tasca-detail',
+    loadChildren: () => import('./pages/tasca-detail/tasca-detail.module').then( m => m.TascaDetailPageModule)
+  },
 
 
 
