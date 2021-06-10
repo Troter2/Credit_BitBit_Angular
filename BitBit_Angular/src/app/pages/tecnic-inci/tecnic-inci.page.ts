@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Inci } from 'src/app/models/inci';
+import { Tasca } from 'src/app/models/tasca';
 import { InciService } from 'src/app/services/inci.service';
 import { LoginService } from 'src/app/services/login.service';
+import { TascaService } from 'src/app/services/tasca.service';
 
 
 @Component({
@@ -11,9 +13,9 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./tecnic-inci.page.scss'],
 })
 export class TecnicInciPage implements OnInit {
-  public searchInci: string="";
-  public incis: Inci[] = [];
-  constructor(private router: Router, private activateRoute: ActivatedRoute,private InciService : InciService, private loginService:LoginService) { 
+  public searchTasca: string="";
+  public tasques: Tasca[] = [];
+  constructor(private router: Router, private activateRoute: ActivatedRoute,private TascaService : TascaService, private loginService:LoginService) { 
     this.activateRoute.params.subscribe(
       (params: ParamMap) => {
         console.log('loginService test')
@@ -24,22 +26,26 @@ export class TecnicInciPage implements OnInit {
         }
       }
     );
-    this.InciService.retrieveIncisFromHttp();
-    this.InciService.incis.subscribe(
-      (inciList: Inci[]) => {
-        this.incis = inciList;
+    this.TascaService.retrieveTasquesFromHttp();
+    this.TascaService.tasques.subscribe(
+      (TasquesList: Tasca[]) => {
+        this.tasques = TasquesList;
+        console.log('=======================')
+        console.log(TasquesList)
+        console.log('========TASCA===============')
+      console.log(this.tasques)
       }
-    )
-    console.log(this.incis)
+      )
+      
   }
 
-  view_inci(id) {
-    this.router.navigate(['/inci-detail', id]);
+  view_tasca(id) {
+    this.router.navigate(['/tasca-detail', id]);
   }
 
-  filterInci(inci : Inci){
-    if(this.searchInci == "") return true;
-    if(this.searchInci == inci.desc) return true;
+  filterTasca(tasca : Tasca){
+    if(this.searchTasca == "") return true;
+    if(this.searchTasca == tasca.marca) return true;
     else return false;
   }
 
