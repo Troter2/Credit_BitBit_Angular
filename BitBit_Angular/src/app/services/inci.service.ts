@@ -75,6 +75,7 @@ export class InciService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token['token'] }),
       observe: 'response' as 'response'
     }
+    console.log("http://localhost/Credit_BitBit_PHP/privateApi/incidencies?id=")
     this.http.get("http://localhost/Credit_BitBit_PHP/privateApi/incidencies?id=" + id, options).subscribe(
       (response: any) => {
         this.renewToken(response.body.token);
