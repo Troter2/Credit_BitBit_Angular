@@ -11,12 +11,24 @@ import { Tasca } from '../models/tasca';
 export class TascaService {
   private _tasques: BehaviorSubject<Tasca[]> = new BehaviorSubject<Tasca[]>([]);
   private _tasca: BehaviorSubject<Tasca> = new BehaviorSubject<Tasca>(new Tasca());
+  private _maxData: number = 0;
+  private _curTask: number = 0;
+  private _limitTask: number = 10;
+
   constructor(private http: HttpClient, private router: Router) { }
   get tasques(): Observable<Tasca[]> {
     return this._tasques.asObservable();
   }
   get tasca(): Observable<Tasca> {
     return this._tasca.asObservable();
+  }
+
+  get maxData(): number {
+    return this._maxData
+  }
+
+  set maxData(number) {
+    this._maxData = number;
   }
 
   retrieveTasquesFromHttp() {
@@ -32,10 +44,10 @@ export class TascaService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token['token'] }),
       observe: 'response' as 'response'
     }
-    this.http.get("http://localhost/Credit_BitBit_PHP/privateApi/tasques?limit=10&&offset=3", options).subscribe(
+    this.http.get('http://localhost/Credit_BitBit_PHP/privateApi/tasques?limit=' + this._limitTask + '&&offset=' + this._curTask, options).subscribe(
       (response: any) => {
         this.renewToken(response.body.token);
-        this._tasques.next([]);
+        this.maxData=response.body.amount;
         response.body.tasques.forEach((element) => {
           let tasca: Tasca = new Tasca();
           tasca.id_inci = element.id_inci;
@@ -57,6 +69,7 @@ export class TascaService {
         )
       }
     )
+    this._curTask = this._curTask + this._limitTask;
   }
 
 
@@ -74,16 +87,16 @@ export class TascaService {
     this.http.get("http://localhost/Credit_BitBit_PHP/privateApi/tasques?id=" + id, options).subscribe(
       (response: any) => {
         this.renewToken(response.body.token);
-        detail_tasca.id_inci = response.body.token.id_inci;
-        detail_tasca.id_tasca = response.body.token.id_tasca;
-        detail_tasca.desc = response.body.token.desc;
-        detail_tasca.id_user = response.body.token.id_user;
-        detail_tasca.status = response.body.token.status;
-        detail_tasca.marca = response.body.token.marca;
-        detail_tasca.accions = response.body.token.accions;
-        detail_tasca.start_date = response.body.token.start_date;
-        detail_tasca.end_date = response.body.token.end_date;
-        detail_tasca.canvas = response.body.token.canvas;
+        detail_tasca.id_inci = response.body.tasca.id_inci;
+        detail_tasca.id_tasca = response.body.tasca.id_tasca;
+        detail_tasca.desc = response.body.tasca.desc;
+        detail_tasca.id_user = response.body.tasca.id_user;
+        detail_tasca.status = response.body.tasca.status;
+        detail_tasca.marca = response.body.tasca.marca;
+        detail_tasca.accions = response.body.tasca.accions;
+        detail_tasca.start_date = response.body.tasca.start_date;
+        detail_tasca.end_date = response.body.tasca.end_date;
+        detail_tasca.canvas = response.body.tasca.canvas;
         console.log(detail_tasca);
         this.tasca.pipe(take(1)).subscribe(
           (originalMail: Tasca) => {
@@ -95,6 +108,10 @@ export class TascaService {
       }
     )
 
+  }
+
+  endTask(): boolean {
+    return this._curTask >= this.maxData;
   }
 
 
