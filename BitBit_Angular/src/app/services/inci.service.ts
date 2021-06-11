@@ -12,6 +12,9 @@ export class InciService {
 
   private _incis: BehaviorSubject<Inci[]> = new BehaviorSubject<Inci[]>([]);
   private _inci: BehaviorSubject<Inci> = new BehaviorSubject<Inci>(new Inci());
+  private _maxData: number = 0;
+  private _curInci: number = 0;
+  private _limitInci: number = 20;
   constructor(private http: HttpClient, private router: Router) { }
 
   get incis(): Observable<Inci[]> {
@@ -19,6 +22,14 @@ export class InciService {
   }
   get inci(): Observable<Inci> {
     return this._inci.asObservable();
+  }
+  
+  get maxData(): number {
+    return this._maxData
+  }
+
+  set maxData(number) {
+    this._maxData = number;
   }
 
   retrieveIncisFromHttp() {
@@ -36,10 +47,10 @@ export class InciService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token['token'] }),
       observe: 'response' as 'response'
     }
-    this.http.get("http://localhost/Credit_BitBit_PHP/privateApi/incidencies?limit=10&&offset=3", options).subscribe(
+    this.http.get('http://localhost/Credit_BitBit_PHP/privateApi/incidencies?limit=' + this._limitInci + '&&offset=' + this._curInci, options).subscribe(
       (response: any) => {
         this.renewToken(response.body.token);
-        this._incis.next([]);
+        this.maxData= response.body.amount;
         response.body.incidencies.forEach((element) => {
           let inci: Inci = new Inci();
           inci.id_inci = element.id_inci;
@@ -62,6 +73,11 @@ export class InciService {
         )
       }
     )
+    this._curInci = this._curInci + this._limitInci;
+  }
+
+  endInci(): boolean {
+    return this._curInci >= this.maxData;
   }
 
 

@@ -45,6 +45,18 @@ export class UserInciPage implements OnInit {
     else return false;
   }
 
+  loadNewData(event) {
+    //demanar al service noves dades (de 10 en 10)
+    console.log('jejeje')
+    if (this.InciService.endInci()) {
+      console.log('error true')
+      event.target.disabled = true
+    } else {
+      console.log('error false')
+      this.InciService.retrieveIncisFromHttp();
+      event.target.complete();
+    }
+  }
 
   ngOnInit() {
   }

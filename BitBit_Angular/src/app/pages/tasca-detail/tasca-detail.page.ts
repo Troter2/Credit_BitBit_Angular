@@ -29,8 +29,10 @@ export class TascaDetailPage implements OnInit {
         }
       }
     );
-   }
+  }
+  
 
+  
   ngOnInit() {
   }
 

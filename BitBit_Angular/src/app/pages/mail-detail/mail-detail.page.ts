@@ -30,6 +30,9 @@ export class MailDetailPage implements OnInit {
     );
   
   }
+
+
+  
   ngOnInit() {
   }
 

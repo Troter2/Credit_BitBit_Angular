@@ -10,11 +10,9 @@
 <ion-content>
     <ion-card>
         <ion-card-header>
-            <ion-card-subtitle>{{mail.from}}</ion-card-subtitle>
-            <ion-card-title>{{mail.about}}</ion-card-title>
+            <ion-card-subtitle [innerHTML]='mail.from'></ion-card-subtitle>
+            <ion-card-title [innerHTML]='mail.about'></ion-card-title>
         </ion-card-header>
-        <ion-card-content>
-            {{mail.content}}
-        </ion-card-content>
+        <ion-card-content [innerHTML]='mail.content'></ion-card-content>
     </ion-card>
 </ion-content>

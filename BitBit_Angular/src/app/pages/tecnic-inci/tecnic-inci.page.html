@@ -16,10 +16,14 @@
                 <ion-label [innerHTML]="tasca.marca"></ion-label>
                 <ion-label [innerHTML]="tasca.desc"></ion-label>
                 <ion-ripple-effect></ion-ripple-effect>
-                <ion-icon name="create-outline"  color="primary"></ion-icon>
+                <ion-icon name="create-outline" color="primary"></ion-icon>
 
             </ion-item>
         </div>
 
     </ion-list>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadNewData($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

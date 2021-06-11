@@ -15,8 +15,6 @@ export class ListMailPage implements OnInit {
 
     this.activateRoute.params.subscribe(
       (params: ParamMap) => {
-        console.log('================')
-        console.log(this.loginService.user.group)
         if (this.loginService.user.group == '') {
           this.router.navigate(["/home"])
         } else {
@@ -35,6 +33,20 @@ export class ListMailPage implements OnInit {
   view_mail(id) {
     this.router.navigate(['/mail-detail', id]);
   }
+
+  loadNewData(event) {
+    //demanar al service noves dades (de 10 en 10)
+    console.log('jejeje')
+    if (this.mailService.endMail()) {
+      console.log('error true')
+      event.target.disabled = true
+    } else {
+      console.log('error false')
+      this.mailService.retrieveMailsFromHttp();
+      event.target.complete();
+    }
+  }
+
   ngOnInit() {
   }
 }

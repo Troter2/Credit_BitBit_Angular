@@ -11,14 +11,28 @@ import { Mail } from '../models/mail';
 export class MailService {
   private _mails: BehaviorSubject<Mail[]> = new BehaviorSubject<Mail[]>([]);
   private _mail: BehaviorSubject<Mail> = new BehaviorSubject<Mail>(new Mail());
+  private _maxData: number = 0;
+  private _curMail: number = 0;
+  private _limitMail: number = 15;
 
   constructor(private http: HttpClient, private router: Router) { }
+
+
+
 
   get mails(): Observable<Mail[]> {
     return this._mails.asObservable();
   }
   get mail(): Observable<Mail> {
     return this._mail.asObservable();
+  }
+
+  get maxData(): number {
+    return this._maxData
+  }
+
+  set maxData(number) {
+    this._maxData = number;
   }
 
   retrieveMailsFromHttp() {
@@ -34,10 +48,10 @@ export class MailService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token['token'] }),
       observe: 'response' as 'response'
     }
-    this.http.get("http://localhost/Credit_BitBit_PHP/privateApi/mail", options).subscribe(
+    this.http.get("http://localhost/Credit_BitBit_PHP/privateApi/mail?limit=" + this._limitMail + '&&offset=' + this._curMail, options).subscribe(
       (response: any) => {
         this.renewToken(response.body.token);
-        this._mails.next([]);
+        this._maxData=response.body.amount;
         response.body.mails.forEach((element) => {
           let mail: Mail = new Mail();
           mail.from = element.from;
@@ -54,6 +68,7 @@ export class MailService {
         )
       }
     )
+    this._curMail = this._curMail + this._limitMail;
   }
 
 
@@ -68,6 +83,7 @@ export class MailService {
     }
     this.http.get("http://localhost/Credit_BitBit_PHP/privateApi/mail?id=" + id, options).subscribe(
       (response: any) => {
+        this.maxData= response.body.amount;
 
         this.renewToken(response.body.token);
         data_mail.id = response.body.mails.id_msg;
@@ -110,6 +126,11 @@ export class MailService {
       }
     )
   }
+
+  endMail(){
+    return this._curMail >= this._maxData;
+  }
+
   renewToken(token) {
     let group = JSON.parse(localStorage.getItem("USER_DATA"))
     let infouser = {
