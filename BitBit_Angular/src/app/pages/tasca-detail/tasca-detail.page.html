@@ -23,22 +23,22 @@
 
         <ion-item>
             <ion-label position="stacked">Descripció</ion-label>
-            <ion-input type="text" [(ngModel)]="tasca.desc"></ion-input>
+            <ion-textarea [(ngModel)]="tasca.desc"></ion-textarea>
         </ion-item>
 
         <ion-item>
             <ion-label position="stacked">Accions realitzades</ion-label>
-            <ion-textarea [(ngModel)]="tasca.accions"></ion-textarea>
+            <ion-textarea [(ngModel)]="tasca.accions">{{tasca.accions}}</ion-textarea>
         </ion-item>
 
         <ion-item>
             <ion-label position="stacked">Data d'inici</ion-label>
-            <ion-input type="text" [(ngModel)]="tasca.start_date"></ion-input>
+            <ion-input type="text" [(ngModel)]="tasca.start_date" readonly></ion-input>
         </ion-item>
 
         <ion-item>
             <ion-label position="stacked">Data finalització</ion-label>
-            <ion-input type="text" [(ngModel)]="tasca.end_date"></ion-input>
+            <ion-input type="date" [(ngModel)]="tasca.end_date"></ion-input>
         </ion-item>
     </ion-list>
 

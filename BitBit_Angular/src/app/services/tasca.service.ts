@@ -13,7 +13,7 @@ export class TascaService {
   private _tasca: BehaviorSubject<Tasca> = new BehaviorSubject<Tasca>(new Tasca());
   private _maxData: number = 0;
   private _curTask: number = 0;
-  private _limitTask: number = 10;
+  private _limitTask: number = 20;
 
   constructor(private http: HttpClient, private router: Router) { }
   get tasques(): Observable<Tasca[]> {

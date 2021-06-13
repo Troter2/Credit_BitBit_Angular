@@ -13,7 +13,7 @@ export class MailService {
   private _mail: BehaviorSubject<Mail> = new BehaviorSubject<Mail>(new Mail());
   private _maxData: number = 0;
   private _curMail: number = 0;
-  private _limitMail: number = 15;
+  private _limitMail: number = 20;
 
   constructor(private http: HttpClient, private router: Router) { }
 
