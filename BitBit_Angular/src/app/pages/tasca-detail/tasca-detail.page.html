@@ -15,9 +15,12 @@
             <ion-input type="text" [(ngModel)]="tasca.id_tasca"></ion-input>
         </ion-item>
 
+
         <ion-item>
-            <ion-label position="stacked">Estat</ion-label>
-            <ion-input type="text" [(ngModel)]="tasca.status"></ion-input>
+            <ion-label position="stacked">Tipus consulta</ion-label>
+            <ion-select interface="popover" [(ngModel)]="id_consulta">
+                <ion-select-option *ngFor="let statu of status; let i = index" value={{statu.id_status}}>{{statu.desc}}</ion-select-option>
+            </ion-select>
         </ion-item>
 
 

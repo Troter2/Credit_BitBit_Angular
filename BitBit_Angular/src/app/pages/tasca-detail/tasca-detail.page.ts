@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Tasca } from 'src/app/models/tasca';
 import { TascaService } from 'src/app/services/tasca.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Status } from 'src/app/models/status';
 
 
 @Component({
@@ -14,7 +15,8 @@ export class TascaDetailPage implements OnInit {
   public tasca: Tasca;
   private id: number;
   private id_tasca: number;
-  public status: string = "";
+  public status:  Status[] = [];
+  public tipus_status: string ="";
   public descripcio: string = "";
   public accions: string = "";
   constructor(private router: Router, private activateRoute: ActivatedRoute, private TascaService: TascaService) {
@@ -30,17 +32,23 @@ export class TascaDetailPage implements OnInit {
               this.tasca = detail_tasca;
             }
           )
+          this.TascaService.retrieveStatusFromHttp();
+          this.TascaService.status.subscribe(
+            (originalstatus: Status[]) => {
+              this.status = originalstatus;
+            }
+          )
         }
       }
     );
   }
 
   updateTask() {
-    this.status = this.tasca.status
+    this.tipus_status = this.tasca.status
     this.id_tasca = this.tasca.id_tasca
     this.descripcio = this.tasca.desc
     this.accions = this.tasca.accions
-    this.TascaService.updateTaskFromHttp(this.id_tasca,this.status,this.descripcio,this.accions);
+    this.TascaService.updateTaskFromHttp(this.id_tasca,this.tipus_status,this.descripcio,this.accions);
   }
   
 

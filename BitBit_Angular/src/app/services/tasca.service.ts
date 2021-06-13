@@ -4,12 +4,14 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { Tasca } from '../models/tasca';
+import { Status } from '../models/status';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TascaService {
   private _tasques: BehaviorSubject<Tasca[]> = new BehaviorSubject<Tasca[]>([]);
+  private _status: BehaviorSubject<Status[]> = new BehaviorSubject<Status[]>([]);
   private _tasca: BehaviorSubject<Tasca> = new BehaviorSubject<Tasca>(new Tasca());
   private _maxData: number = 0;
   private _curTask: number = 0;
@@ -30,6 +32,11 @@ export class TascaService {
   set maxData(number) {
     this._maxData = number;
   }
+  get status(): Observable<Status[]> {
+    return this._status.asObservable();
+  }
+  
+
 
   retrieveTasquesFromHttp() {
 
@@ -72,6 +79,44 @@ export class TascaService {
     this._curTask = this._curTask + this._limitTask;
   }
 
+
+  retrieveStatusFromHttp(){
+    let size = 0;
+    this.status.pipe(take(1)).subscribe(
+      (tipusConsultaList: Status[]) => {
+        size = tipusConsultaList.length;
+      }
+    );
+    console.log("enter");
+
+
+    this.http.get("http://localhost/Credit_BitBit_PHP/privateApi/status").subscribe(
+      (response: any) => {
+        console.log(response)
+        if (response.length == size) {
+          // console.log("first input");
+          return;
+        }
+        else this._status.next([]);
+        console.log("AQUIII")
+        response.status.forEach((element) => {
+          console.log(element);
+          let status: Status = new Status();
+          status.id = element.id_status;
+          status.desc = element.desc;
+
+
+          this._status.pipe(take(1)).subscribe(
+            (originalstatus: Status[]) => {
+              this._status.next(originalstatus.concat(status));
+            }
+          )
+        }
+        )
+      }
+    )
+  
+  }
 
 
   retrieveTascaFromHttp(id: number) {
