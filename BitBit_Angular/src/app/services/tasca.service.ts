@@ -110,6 +110,36 @@ export class TascaService {
 
   }
 
+  updateTaskFromHttp(id_tasca,estat, desc,accions) {
+    let updatetask = {
+      id_tasca: id_tasca,
+      estat: estat,
+      descripcio: desc,
+      accions: accions,
+    }
+    console.log(updatetask);
+    let token = JSON.parse(localStorage.getItem("USER_DATA"));   //AQUI ESTA EL ERROR
+    let options = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token['token'] }),
+      observe: 'response' as 'response'
+    }
+    this.http.put("http://localhost/Credit_BitBit_PHP/privateApi/tasques", updatetask , options).subscribe(
+      (response: any) => {
+        this.renewToken(response.body.token);
+        let tasca = new Tasca();
+        tasca.status = estat;
+        tasca.desc = desc;
+        tasca.id_tasca = id_tasca;
+        tasca.accions = accions;
+        this.router.navigate(['/tecnic-inci']);
+      },
+      (error: any) => {
+        console.log("ERROR:" + error);
+      }
+    )
+  }
+
+
   endTask(): boolean {
     return this._curTask >= this.maxData;
   }

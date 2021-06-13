@@ -11,6 +11,11 @@
     <ion-list>
 
         <ion-item>
+            <ion-label position="stacked">Id</ion-label>
+            <ion-input type="text" [(ngModel)]="tasca.id_tasca"></ion-input>
+        </ion-item>
+
+        <ion-item>
             <ion-label position="stacked">Estat</ion-label>
             <ion-input type="text" [(ngModel)]="tasca.status"></ion-input>
         </ion-item>
@@ -41,6 +46,8 @@
             <ion-input type="date" [(ngModel)]="tasca.end_date"></ion-input>
         </ion-item>
     </ion-list>
+    <ion-button (click)='updateTask()'>Envia</ion-button>
+
 
 
 </ion-content>

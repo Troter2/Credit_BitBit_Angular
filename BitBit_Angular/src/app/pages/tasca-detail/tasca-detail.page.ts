@@ -13,6 +13,10 @@ export class TascaDetailPage implements OnInit {
 
   public tasca: Tasca;
   private id: number;
+  private id_tasca: number;
+  public status: string = "";
+  public descripcio: string = "";
+  public accions: string = "";
   constructor(private router: Router, private activateRoute: ActivatedRoute, private TascaService: TascaService) {
     this.activateRoute.params.subscribe(
       (params: ParamMap) => {
@@ -29,6 +33,14 @@ export class TascaDetailPage implements OnInit {
         }
       }
     );
+  }
+
+  updateTask() {
+    this.status = this.tasca.status
+    this.id_tasca = this.tasca.id_tasca
+    this.descripcio = this.tasca.desc
+    this.accions = this.tasca.accions
+    this.TascaService.updateTaskFromHttp(this.id_tasca,this.status,this.descripcio,this.accions);
   }
   
 
