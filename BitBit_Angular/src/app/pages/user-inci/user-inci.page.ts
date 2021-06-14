@@ -18,7 +18,7 @@ export class UserInciPage implements OnInit {
     this.activateRoute.params.subscribe(
       (params: ParamMap) => {
         console.log('loginService test')
-        if (this.loginService.user.token == '') {
+        if (this.loginService.user.token == ''|| this.loginService.user.group != 'user') {
           this.router.navigate(["/home"])
         } else {
 

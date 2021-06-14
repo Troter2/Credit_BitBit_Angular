@@ -18,7 +18,7 @@ export class TecnicInciPage implements OnInit {
     this.activateRoute.params.subscribe(
       (params: ParamMap) => {
         console.log('loginService test')
-        if (this.loginService.user.token == '') {
+        if (this.loginService.user.token == '' || (this.loginService.user.group != 'tecnic' && this.loginService.user.group != 'gestor')) {
           this.router.navigate(["/home"])
         } else {
 

@@ -16,7 +16,7 @@
                         <ion-icon name="document-outline" slot="start" [routerLink]="'/user-inci'"></ion-icon>
                         <ion-label [routerLink]="'/user-inci'">Les meves incidencies</ion-label>
                     </ion-item>
-                    <ion-item *ngIf="loginService.user.group == 'tecnic'">
+                    <ion-item *ngIf="(this.loginService.user.group == 'tecnic' || this.loginService.user.group == 'gestor')">
                         <ion-icon name="document-outline" slot="start" [routerLink]="'/tecnic-inci'"></ion-icon>
                         <ion-label [routerLink]="'/tecnic-inci'">Les meves tasques</ion-label>
                     </ion-item>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Mail } from 'src/app/models/mail';
+import { LoginService } from 'src/app/services/login.service';
 import { MailService } from 'src/app/services/mail.service';
 import { PublicService } from 'src/app/services/public.service';
 
@@ -12,10 +13,10 @@ import { PublicService } from 'src/app/services/public.service';
 export class MailDetailPage implements OnInit {
   public mail: Mail;
   private id: number;
-  constructor(private router: Router, private activateRoute: ActivatedRoute, private MailService: MailService) {
+  constructor(private router: Router, private activateRoute: ActivatedRoute,private loginService:LoginService, private MailService: MailService) {
     this.activateRoute.params.subscribe(
       (params: ParamMap) => {
-        if (params['id'] == null) {
+        if (params['id'] == null || this.loginService.user.group != null) {
           this.router.navigate(["/home"])
         } else {
           this.id = Number(params['id']);

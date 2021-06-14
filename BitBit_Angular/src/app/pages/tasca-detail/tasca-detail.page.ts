@@ -3,6 +3,7 @@ import { Tasca } from 'src/app/models/tasca';
 import { TascaService } from 'src/app/services/tasca.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Status } from 'src/app/models/status';
+import { LoginService } from 'src/app/services/login.service';
 
 
 @Component({
@@ -19,10 +20,10 @@ export class TascaDetailPage implements OnInit {
   public tipus_status: string ="";
   public descripcio: string = "";
   public accions: string = "";
-  constructor(private router: Router, private activateRoute: ActivatedRoute, private TascaService: TascaService) {
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private loginService:LoginService ,private TascaService: TascaService) {
     this.activateRoute.params.subscribe(
       (params: ParamMap) => {
-        if (params['id'] == null) {
+        if (params['id'] == null || (this.loginService.user.group != 'tecnic' && this.loginService.user.group != 'gestor')) {
           this.router.navigate(["/home"])
         } else {
           this.id = Number(params['id']);
