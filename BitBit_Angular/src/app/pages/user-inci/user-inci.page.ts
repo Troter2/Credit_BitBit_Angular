@@ -1,4 +1,3 @@
-import { UpperCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Inci } from 'src/app/models/inci';
@@ -21,17 +20,16 @@ export class UserInciPage implements OnInit {
         if (this.loginService.user.token == ''|| this.loginService.user.group != 'user') {
           this.router.navigate(["/home"])
         } else {
-
+          this.InciService.retrieveIncisFromHttp();
+          this.InciService.incis.subscribe(
+            (inciList: Inci[]) => {
+              this.incis = inciList;
+            }
+          )
+          console.log(this.incis)
         }
       }
     );
-    this.InciService.retrieveIncisFromHttp();
-    this.InciService.incis.subscribe(
-      (inciList: Inci[]) => {
-        this.incis = inciList;
-      }
-    )
-    console.log(this.incis)
   }
 
   view_inci(id) {
